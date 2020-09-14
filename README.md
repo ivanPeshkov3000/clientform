@@ -14,6 +14,10 @@ npm run serve
 ```
 npm run build
 ```
+### Compiles and minifies for develop
+```
+npm run dev-build
+```
 
 ### Run your tests
 ```
