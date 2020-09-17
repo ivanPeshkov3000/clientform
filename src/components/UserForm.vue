@@ -1,4 +1,4 @@
-<template lang="pug">
+  <template lang="pug">
   form#create-profile(
     value="create",
     @submit.prevent="createUser",
@@ -9,7 +9,7 @@
       .bio-wrapper
         h3 Основное:
         InputValid(
-          :input-item="inputs.surname"
+          :item="inputs.surname"
         )
 
         label( for="surname") Фамилия*: 
@@ -207,9 +207,8 @@
 </template>
 
 <script>
-import { required, minLength, numeric } from 'vuelidate/lib/validators'
+import * as vuelidate from 'vuelidate/lib/validators'
 import InputValid from './InputValid.vue'
-
 
 export default {
   components: {
@@ -221,12 +220,12 @@ export default {
         surname: {
           type: "text",
           name: "surname",
-          title: "Фамилия",
-          validators: [
-            "required",
-            ["minLength", 2],
-            "alpha"
-          ]
+          title: "Фамилия*:",
+          validators: {
+            required: true,
+            minLength: 2,
+            alpha: true
+          }
         }
       },
       bio: {
@@ -274,61 +273,55 @@ export default {
   validations: {
     bio: {
       name: {
-        required,
-        minLength: minLength(2)
+        required: vuelidate.required,
+        minLength: vuelidate.minLength(2)
       },
       surname: {
-        required,
-        minLength: minLength(2)
+        required: vuelidate.required,
+        minLength: vuelidate.minLength(2)
       },
       patronym: {
-        minLength: minLength(2)
+        minLength: vuelidate.minLength(2)
       },
       dob: {
-        required,
-        numeric
+        required: vuelidate.required,
+        numeric: vuelidate.numeric
       },
-      gender: {
-
-      },
+      gender: {},
       phone: {
-        required,
-        minLength: minLength(11),
-        numeric
+        required: vuelidate.required,
+        minLength: vuelidate.minLength(11),
+        numeric: vuelidate.numeric
       },
       group: {
-        required
+        required: vuelidate.required
       },
-      doctor: {
-
-      },
-      sendsms: {
-
-      }
+      doctor: {},
+      sendsms: {}
     },
     address: {
       index: {
-        numeric
+        numeric: vuelidate.numeric
       },
       country: {},
       region: {},
       city: {
-        required
+        required: vuelidate.required
       },
       street: {},
       house: {}
     },
     passport: {
       type: {
-        required
+        required: vuelidate.required
       },
       serial: {},
       number: {
-        numeric
+        numeric: vuelidate.numeric
       },
       issueBy: {},
       issueDate: {
-        required
+        required: vuelidate.required
       },
 
     },
